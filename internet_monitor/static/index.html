@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Internet Monitor</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Internet Monitor</h1>
+    <div id="status" class="status unknown">
+      <span class="dot"></span>
+      <div>
+        <div id="status-text">Loading…</div>
+        <div id="status-sub" class="muted"></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <nav id="ranges">
+      <button data-range="1h">1 hour</button>
+      <button data-range="6h">6 hours</button>
+      <button data-range="24h" class="active">24 hours</button>
+      <button data-range="7d">7 days</button>
+      <button data-range="30d">30 days</button>
+      <button data-range="90d">90 days</button>
+      <button data-range="365d">1 year</button>
+      <button data-range="custom">Custom…</button>
+      <form id="custom" hidden>
+        <input type="datetime-local" id="custom-start" required>
+        <span>→</span>
+        <input type="datetime-local" id="custom-end" required>
+        <button type="submit">Apply</button>
+      </form>
+    </nav>
+
+    <section class="cards">
+      <div class="card"><div class="label">Uptime</div><div class="value" id="c-uptime">–</div></div>
+      <div class="card"><div class="label">Outages</div><div class="value" id="c-outages">–</div></div>
+      <div class="card"><div class="label">Total downtime</div><div class="value" id="c-downtime">–</div></div>
+      <div class="card"><div class="label">Longest outage</div><div class="value" id="c-longest">–</div></div>
+      <div class="card"><div class="label">Avg. latency</div><div class="value" id="c-latency">–</div></div>
+      <div class="card"><div class="label">Checks</div><div class="value" id="c-checks">–</div></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Availability</h2>
+        <div class="legend">
+          <span><i style="background:var(--c100)"></i>100%</span>
+          <span><i style="background:var(--c99)"></i>≥99%</span>
+          <span><i style="background:var(--c95)"></i>≥95%</span>
+          <span><i style="background:var(--c80)"></i>≥80%</span>
+          <span><i style="background:var(--c0)"></i>&lt;80%</span>
+          <span><i style="background:var(--nodata)"></i>no data</span>
+        </div>
+      </div>
+      <svg id="timeline" class="chart"></svg>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Latency</h2><span class="muted" id="latency-note"></span></div>
+      <svg id="latency" class="chart"></svg>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Outages</h2></div>
+      <table id="outages">
+        <thead><tr><th>Started</th><th>Ended</th><th>Duration</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <p id="no-outages" class="muted" hidden>No outages in this period.</p>
+    </section>
+  </main>
+
+  <div id="tooltip" hidden></div>
+  <script src="app.js"></script>
+</body>
+</html>

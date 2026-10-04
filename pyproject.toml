@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "internet-monitor"
+version = "0.1.0"
+description = "Local service that monitors internet connectivity and shows its history in a web dashboard"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8",
+    "httpx>=0.27",
+]
+
+[project.scripts]
+internet-monitor = "internet_monitor.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["internet_monitor*"]
+
+[tool.setuptools.package-data]
+internet_monitor = ["static/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

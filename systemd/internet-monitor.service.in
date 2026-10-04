@@ -1,0 +1,17 @@
+[Unit]
+Description=Internet connection monitor
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=@EXEC@
+Restart=on-failure
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+# Configuration overrides, see README:
+# Environment=IM_PORT=8085
+# Environment=IM_INTERVAL=10
+# Environment=IM_TARGETS=1.1.1.1:443,8.8.8.8:53,9.9.9.9:53
+
+[Install]
+WantedBy=default.target
